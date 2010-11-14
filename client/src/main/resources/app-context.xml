@@ -16,6 +16,8 @@
 			<value>MainFrame</value>
 		</constructor-arg>
 	</bean>
+	
+	<bean id="pluginManager" class="org.gnomiki.client.plugins.ConfigurationPluginManager" init-method="init"/>
 
 	<!-- ############################# -->
 	<!-- Main Frame -->
