@@ -1,5 +1,8 @@
 package org.gnomiki.client;
 
+import java.awt.Dimension;
+import java.util.ResourceBundle;
+
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -11,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class MainFrame extends JFrame {
 
+	@Autowired
+	ResourceBundle bundle;
 	private static final Log L = LogFactory.getLog(MainFrame.class);
 
 	@Autowired
@@ -18,20 +23,21 @@ public class MainFrame extends JFrame {
 
 	public MainFrame() {
 		super("Gnomiki Client");
-		setSize(800, 600);
-		setLocationRelativeTo(null);
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 
 	public void init() {
 		setJMenuBar(composeMenuBar());
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setSize(new Dimension(800, 600));
+
+		setLocationRelativeTo(null);
 
 	}
 
 	private JMenuBar composeMenuBar() {
-		
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.add(new JMenu("Datei"));
+		JMenu widgetMenu = new JMenu(bundle.getString("menu.label.widgets"));
+		menuBar.add(widgetMenu);
 		return menuBar;
 	}
 
