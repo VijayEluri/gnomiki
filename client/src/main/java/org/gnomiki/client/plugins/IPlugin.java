@@ -1,6 +1,5 @@
 package org.gnomiki.client.plugins;
 
-import javax.swing.JPanel;
 
 /**
  * A client plugin.

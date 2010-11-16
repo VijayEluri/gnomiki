@@ -30,4 +30,10 @@ public interface IPluginManager {
 	 * @return
 	 */
 	public IPlugin[] getPlugins();
+
+	/**
+	 * Is called to shut the manager down. Also has to shutdown all plugins as
+	 * well.
+	 */
+	public void shutDown();
 }

@@ -13,7 +13,7 @@ public class ConsoleTable extends JTable {
 
 	public ConsoleTable() {
 		model = new DefaultTableModel(new Object[] { "Time", "SEV", "SOURCE",
-				"MSG", "Exc" }, 3);
+				"MSG", "Exc" }, 1);
 		setModel(model);
 
 	}

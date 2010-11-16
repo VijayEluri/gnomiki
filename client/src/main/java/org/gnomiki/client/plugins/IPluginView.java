@@ -1,8 +1,8 @@
 package org.gnomiki.client.plugins;
 
-import java.awt.BorderLayout;
-
-import javax.swing.JComponent;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
 
 /**
  * A view that can create a JPanel and deliver some view information.
@@ -12,15 +12,13 @@ import javax.swing.JComponent;
  */
 public interface IPluginView {
 
-	public JComponent getComponent();
-
 	/**
-	 * Returns the preferred Region for the plugins view. One of BorderLayout:
-	 * NORTH, WEST, SOUTH, EAST or CENTER.
+	 * Returns a non-modal dialog representing this view.
 	 * 
-	 * @see BorderLayout
+	 * @param parent
+	 * @return
 	 */
-	public String getPreferredRegion();
+	public JDialog getDialog(JFrame parent);
 
 	/**
 	 * Returns a human readable Title for to be displayed in title bars and
@@ -29,5 +27,13 @@ public interface IPluginView {
 	 * @return
 	 */
 	public String getTitle();
+
+	/**
+	 * If this plugin provides Actions to be performed in the widgets Menu, it
+	 * can do so by providing a JMenu.
+	 * 
+	 * @return
+	 */
+	public JMenu getMenu();
 
 }

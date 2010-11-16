@@ -7,8 +7,15 @@
 
 	<context:annotation-config />
 
-	<!-- Configuration specific beans -->
-	<bean id="config" class="org.gnomiki.core.config.impl.PropertiesConfigImpl" />
+	<!-- ################################ -->
+	<!-- # Configuration specific beans # -->
+	<!-- ################################ -->
+	<bean id="config" class="org.gnomiki.core.config.impl.PropertiesConfigImpl">
+	<constructor-arg>
+			<value>clientConfig.properties</value>
+		</constructor-arg>
+	</bean>
+	
 	<bean id="resourceBundle" class="java.util.ResourceBundle"
 		factory-method="getBundle">
 		<constructor-arg>
@@ -16,7 +23,6 @@
 			<value>MainFrame</value>
 		</constructor-arg>
 	</bean>
-	
 	<bean id="pluginManager" class="org.gnomiki.client.plugins.ConfigurationPluginManager" init-method="init"/>
 
 	<!-- ############################# -->

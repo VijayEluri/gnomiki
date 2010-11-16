@@ -9,11 +9,9 @@ import org.gnomiki.core.config.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class ConfigurationPluginManager implements IPluginManager {
-	
-	
 
-	private Log L = LogFactory.getLog(ConfigurationPluginManager.class);
-	
+	private final Log L = LogFactory.getLog(ConfigurationPluginManager.class);
+
 	@Autowired
 	Configuration config;
 
@@ -41,5 +39,16 @@ public class ConfigurationPluginManager implements IPluginManager {
 
 	public IPlugin[] getPlugins() {
 		return pluginsById.values().toArray(new IPlugin[0]);
+	}
+
+	@Override
+	public void shutDown() {
+		for (IPlugin plugin : pluginsById.values()) {
+			plugin.shutDown();
+		}
+
+		pluginsById.clear();
+
+		L.info("shutdown");
 	}
 }

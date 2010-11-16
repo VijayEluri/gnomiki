@@ -1,5 +1,8 @@
 package org.gnomiki.core.config.impl;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.util.Properties;
 import java.util.StringTokenizer;
 
@@ -19,6 +22,18 @@ public class PropertiesConfigImpl implements Configuration {
 
 	public PropertiesConfigImpl() {
 		this(System.getProperties());
+	}
+
+	public PropertiesConfigImpl(String propsUrl) throws MalformedURLException,
+			IOException {
+
+		props = new Properties(System.getProperties());
+		InputStream propsStream = getClass().getClassLoader()
+				.getResource(propsUrl).openStream();
+		props.load(propsStream);
+		propsStream.close();
+
+		L.info("instantiated with url " + propsUrl + "'");
 	}
 
 	public PropertiesConfigImpl(Properties props) {
