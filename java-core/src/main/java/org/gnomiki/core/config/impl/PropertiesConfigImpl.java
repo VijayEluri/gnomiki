@@ -1,6 +1,7 @@
 package org.gnomiki.core.config.impl;
 
 import java.util.Properties;
+import java.util.StringTokenizer;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -26,7 +27,21 @@ public class PropertiesConfigImpl implements Configuration {
 	}
 
 	public String getString(String key) {
-		return null;
+		return props.getProperty(key);
 	}
 
+	public String[] getStringArray(String key) {
+		String value = getString(key);
+		if (value == null) {
+			return null;
+		} else if ("".equals(value.trim())) {
+			return new String[0];
+		}
+		StringTokenizer tokenizer = new StringTokenizer(value, ";");
+		String[] returnValue = new String[tokenizer.countTokens()];
+		for (int i = 0; i < returnValue.length; i++) {
+			returnValue[i] = tokenizer.nextToken();
+		}
+		return returnValue;
+	}
 }
