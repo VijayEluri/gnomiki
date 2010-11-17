@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by Thomas (EMBRACE) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="COMMUNICATIONS"/>
+	<xs:complexType name="SENSORS"/>
+	<xs:complexType name="ACTORS"/>
+	<xs:complexType name="COMPONENTS"/>
+	<xs:complexType name="CORE"/>
+	<xs:complexType name="CHANNEL"/>
+	<xs:complexType name="CHANNELS"/>
+	<xs:complexType name="RESOURCES"/>
+	<xs:complexType name="BATTERY"/>
+	<xs:complexType name="BATTERIES"/>
+	<xs:complexType name="ERRORLOGENTRY"/>
+	<xs:complexType name="ERRORLOG">
+		<xs:sequence minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ENTRY">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="ERRORLOGENTRY">
+							<xs:attribute name="DATE" use="required"/>
+							<xs:attribute name="TIME" use="required"/>
+							<xs:attribute name="LEVEL" use="required"/>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SENSOR"/>
+	<xs:complexType name="GNOMBODY"/>
+	<xs:complexType name="BODYPART"/>
+	<xs:complexType name="BODYPARTS"/>
+	<xs:complexType name="GNOMOWNER"/>
+	<xs:complexType name="SERVER"/>
+	<xs:complexType name="SERVERS"/>
+	<xs:complexType name="CLUSTER"/>
+	<xs:complexType name="CLUSTERS"/>
+	<xs:complexType name="SENSORCAP"/>
+	<xs:complexType name="ACTORCAP"/>
+	<xs:complexType name="SENSORCAPS"/>
+	<xs:complexType name="ACTORCAPS"/>
+	<xs:complexType name="CHANNELCAP"/>
+	<xs:complexType name="CHANNELCAPS"/>
+	<xs:complexType name="ADJECTIVE"/>
+	<xs:complexType name="ADJECTIVES"/>
+	<xs:complexType name="VERB"/>
+	<xs:complexType name="VERBS"/>
+	<xs:complexType name="DICTIONRAY"/>
+	<xs:element name="GNOM">
+		<xs:annotation>
+			<xs:documentation>Comment describing your root element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:all>
+				<xs:element name="OWNER">
+					<xs:complexType>
+						<xs:attribute name="NAME" use="required"/>
+						<xs:attribute name="EMAIL"/>
+						<xs:attribute name="IP"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="SERVERS">
+					<xs:complexType>
+						<xs:sequence minOccurs="0" maxOccurs="unbounded">
+							<xs:element name="SERVER" type="SERVER"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="CLUSTERS">
+					<xs:complexType>
+						<xs:sequence minOccurs="0" maxOccurs="unbounded">
+							<xs:element name="CLUSTER" type="CLUSTER"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="COMPONENTS">
+					<xs:complexType>
+						<xs:all>
+							<xs:element name="BODY">
+								<xs:complexType>
+									<xs:complexContent>
+										<xs:extension base="GNOMBODY">
+											<xs:all>
+												<xs:element name="PARTS">
+													<xs:complexType>
+														<xs:sequence maxOccurs="unbounded">
+															<xs:element name="PART" type="BODYPART"/>
+														</xs:sequence>
+													</xs:complexType>
+												</xs:element>
+											</xs:all>
+											<xs:attribute name="NAME" use="required"/>
+											<xs:attribute name="MANUFACTURER" use="required"/>
+											<xs:attribute name="BIRTHDATE" use="required"/>
+											<xs:attribute name="LASTPIMPED" use="required"/>
+										</xs:extension>
+									</xs:complexContent>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="CORE">
+								<xs:complexType>
+									<xs:complexContent>
+										<xs:extension base="CORE">
+											<xs:all>
+												<xs:element name="LOG" type="ERRORLOG"/>
+											</xs:all>
+											<xs:attribute name="TYPE" use="required"/>
+											<xs:attribute name="VERSION" use="required"/>
+										</xs:extension>
+									</xs:complexContent>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="COMMUNICATIONS">
+								<xs:complexType>
+									<xs:complexContent>
+										<xs:extension base="COMMUNICATIONS">
+											<xs:all>
+												<xs:element name="CHANNELS">
+													<xs:complexType>
+														<xs:complexContent>
+															<xs:extension base="CHANNELS">
+																<xs:sequence minOccurs="0" maxOccurs="unbounded">
+																	<xs:element name="CHANNEL">
+																		<xs:complexType>
+																			<xs:complexContent>
+																				<xs:extension base="CHANNEL">
+																					<xs:all>
+																						<xs:element name="LOG" type="ERRORLOG"/>
+																						<xs:element name="CAPS">
+																							<xs:complexType>
+																								<xs:sequence minOccurs="0" maxOccurs="unbounded">
+																									<xs:element name="CAP" type="CHANNELCAP"/>
+																								</xs:sequence>
+																							</xs:complexType>
+																						</xs:element>
+																					</xs:all>
+																				</xs:extension>
+																			</xs:complexContent>
+																		</xs:complexType>
+																	</xs:element>
+																</xs:sequence>
+															</xs:extension>
+														</xs:complexContent>
+													</xs:complexType>
+												</xs:element>
+											</xs:all>
+										</xs:extension>
+									</xs:complexContent>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="ACTORS">
+								<xs:complexType>
+									<xs:complexContent>
+										<xs:extension base="ACTORS">
+											<xs:sequence minOccurs="0" maxOccurs="unbounded">
+												<xs:element name="ACTOR">
+													<xs:complexType>
+														<xs:all>
+															<xs:element name="LOG" type="ERRORLOG"/>
+															<xs:element name="CAPS">
+																<xs:complexType>
+																	<xs:complexContent>
+																		<xs:extension base="ACTORCAPS">
+																			<xs:sequence minOccurs="0" maxOccurs="unbounded">
+																				<xs:element name="CAP" type="ACTORCAP"/>
+																			</xs:sequence>
+																		</xs:extension>
+																	</xs:complexContent>
+																</xs:complexType>
+															</xs:element>
+														</xs:all>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:extension>
+									</xs:complexContent>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="SENSORS">
+								<xs:complexType>
+									<xs:complexContent>
+										<xs:extension base="SENSORS">
+											<xs:sequence minOccurs="0" maxOccurs="unbounded">
+												<xs:element name="SENSOR">
+													<xs:complexType>
+														<xs:complexContent>
+															<xs:extension base="SENSOR">
+																<xs:all>
+																	<xs:element name="LOG" type="ERRORLOG"/>
+																	<xs:element name="CAPS">
+																		<xs:complexType>
+																			<xs:sequence minOccurs="0" maxOccurs="unbounded">
+																				<xs:element name="CAP" type="SENSORCAP"/>
+																			</xs:sequence>
+																		</xs:complexType>
+																	</xs:element>
+																</xs:all>
+															</xs:extension>
+														</xs:complexContent>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:extension>
+									</xs:complexContent>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="RESOURCES">
+								<xs:complexType>
+									<xs:complexContent>
+										<xs:extension base="RESOURCES">
+											<xs:all>
+												<xs:element name="BATTERIES">
+													<xs:complexType>
+														<xs:sequence maxOccurs="unbounded">
+															<xs:element name="BATTERY"/>
+														</xs:sequence>
+													</xs:complexType>
+												</xs:element>
+											</xs:all>
+										</xs:extension>
+									</xs:complexContent>
+								</xs:complexType>
+							</xs:element>
+						</xs:all>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="DICTIONARY">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="DICTIONRAY">
+								<xs:all>
+									<xs:element name="VERBS">
+										<xs:complexType>
+											<xs:complexContent>
+												<xs:extension base="VERBS">
+													<xs:sequence minOccurs="0" maxOccurs="unbounded">
+														<xs:element name="VERB">
+															<xs:complexType>
+																<xs:complexContent>
+																	<xs:extension base="VERB">
+																		<xs:attribute name="KEY"/>
+																	</xs:extension>
+																</xs:complexContent>
+															</xs:complexType>
+														</xs:element>
+													</xs:sequence>
+												</xs:extension>
+											</xs:complexContent>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="ADJECTIVES">
+										<xs:complexType>
+											<xs:complexContent>
+												<xs:extension base="ADJECTIVES">
+													<xs:sequence minOccurs="0" maxOccurs="unbounded">
+														<xs:element name="ADJECTIVE" type="ADJECTIVE"/>
+													</xs:sequence>
+												</xs:extension>
+											</xs:complexContent>
+										</xs:complexType>
+									</xs:element>
+								</xs:all>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+			</xs:all>
+			<xs:attribute name="GUID" type="xs:string" use="required"/>
+			<xs:attribute name="NAME" type="xs:string" default="GNOME"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
