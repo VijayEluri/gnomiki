@@ -1,5 +1,6 @@
 package org.gnomiki.client.plugins.console;
 
+import java.text.DateFormat;
 import java.util.Date;
 
 import javax.swing.JTable;
@@ -8,6 +9,9 @@ import javax.swing.table.DefaultTableModel;
 ;
 
 public class ConsoleTable extends JTable {
+
+	DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT,
+			DateFormat.SHORT);
 
 	DefaultTableModel model;
 
@@ -18,37 +22,36 @@ public class ConsoleTable extends JTable {
 
 	}
 
-	void addTrace(Class clazz, String msg, Throwable t) {
-		addEntry(clazz, "TRACE", msg, t);
+	void addTrace(String name, String msg, Throwable t) {
+		addEntry(name, "TRACE", msg, t);
 	}
 
-	void addDebug(Class clazz, Object message, Throwable t) {
-		addEntry(clazz, "DEBUG", message, t);
+	void addDebug(String name, Object message, Throwable t) {
+		addEntry(name, "DEBUG", message, t);
 	}
 
-	private void addEntry(Class clazz, String severity, Object message,
-			Throwable t) {
+	void addEntry(String name, String severity, Object message, Throwable t) {
 
-		Object[] rowData = new Object[] { new Date(), severity,
-				clazz.getSimpleName(), message, t != null ? t.toString() : "" };
+		Object[] rowData = new Object[] { dateFormat.format(new Date()),
+				severity, name, message, t != null ? t.toString() : "" };
 		model.insertRow(0, rowData);
 
 	}
 
-	void addInfo(Class clazz, Object msg, Throwable t) {
-		addEntry(clazz, "INFO", msg, t);
+	void addInfo(String name, Object msg, Throwable t) {
+		addEntry(name, "INFO", msg, t);
 	}
 
-	void addError(Class clazz, Object msg, Throwable t) {
-		addEntry(clazz, "ERROR", msg, t);
+	void addError(String name, Object msg, Throwable t) {
+		addEntry(name, "ERROR", msg, t);
 	}
 
-	void addWarn(Class clazz, Object msg, Throwable t) {
-		addEntry(clazz, "WARN", msg, t);
+	void addWarn(String name, Object msg, Throwable t) {
+		addEntry(name, "WARN", msg, t);
 	}
 
-	void addFatal(Class clazz, Object msg, Throwable t) {
-		addEntry(clazz, "FATAL", msg, t);
+	void addFatal(String name, Object msg, Throwable t) {
+		addEntry(name, "FATAL", msg, t);
 	}
 
 }

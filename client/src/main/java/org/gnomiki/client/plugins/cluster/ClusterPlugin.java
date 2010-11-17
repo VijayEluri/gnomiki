@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 
 import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.gnomiki.client.plugins.ISwingPlugin;
 import org.gnomiki.client.plugins.console.ConsolePlugin;
 import org.gnomiki.cluster.ClusterListener;
@@ -16,7 +17,7 @@ public class ClusterPlugin implements ISwingPlugin {
 
 	private ConsolePlugin con;
 
-	private Log L;
+	private final Log L = LogFactory.getLog(ClusterPlugin.class);
 
 	ClusterListener listener;
 
@@ -27,8 +28,7 @@ public class ClusterPlugin implements ISwingPlugin {
 	public void init(IPluginManager pluginManager) throws Exception {
 
 		con = (ConsolePlugin) pluginManager.getPlugin(ConsolePlugin.PLUGIN_ID);
-		L = con.getLog(ClusterPlugin.class);
-		listener = new ClusterListener(con.getLog(ClusterListener.class), 5000);
+		listener = new ClusterListener(5000);
 
 		new Thread(listener).start();
 		L.info("initialized");

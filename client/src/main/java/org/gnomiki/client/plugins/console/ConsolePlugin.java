@@ -47,11 +47,14 @@ public class ConsolePlugin implements ISwingPlugin {
 
 	public void init(IPluginManager pm) throws Exception {
 		this.pluginManager = pm;
+
+		ConsoleAppender.me.table = getTable();
 		L.info("initialized");
 	}
 
 	public void shutDown() {
 		L.info("shutdown");
+		ConsoleAppender.me.table = null;
 	}
 
 	public JPanel getPanel() {
@@ -75,10 +78,6 @@ public class ConsolePlugin implements ISwingPlugin {
 
 	public void info(Class clazz, String msg) {
 		LogFactory.getLog(clazz).info(msg);
-	}
-
-	public Log getLog(Class clazz) {
-		return new ConsoleLog(clazz, getTable());
 	}
 
 	public JMenu getMenu() {
