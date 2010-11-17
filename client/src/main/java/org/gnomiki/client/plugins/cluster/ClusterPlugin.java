@@ -32,7 +32,7 @@ public class ClusterPlugin implements IPlugin, IPluginView {
 
 		con = (ConsolePlugin) pluginManager.getPlugin(ConsolePlugin.PLUGIN_IN);
 		L = con.getLog(ClusterPlugin.class);
-		listener = new ClusterListener(con.getLog(ClusterListener.class), 100);
+		listener = new ClusterListener(con.getLog(ClusterListener.class), 5000);
 
 		new Thread(listener).start();
 		L.info("initialized");
@@ -43,19 +43,14 @@ public class ClusterPlugin implements IPlugin, IPluginView {
 
 	}
 
-	@Override
 	public JMenu getMenu() {
-		// not yet providing any menu
 		return null;
 	}
 
-	@Override
 	public JDialog getDialog(JFrame parent) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public String getTitle() {
 		return "Cluster";
 	}

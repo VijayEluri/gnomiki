@@ -18,26 +18,24 @@ public class ClusterListener implements Runnable {
 
 	public static final int PORT = 30000;
 	Log l;
-	private final int intervall;
+	private final int timeout;
 
 	boolean shutDown = false;
 
 	public ClusterListener(Log myNewLogger, int intervall) {
 		l = myNewLogger;
-		this.intervall = intervall;
+		this.timeout = intervall;
 
 	}
 
-	@Override
 	public void run() {
-		l.info("listening at port " + PORT + " with intervall " + intervall
-				+ "ms");
+		l.info("listening at port " + PORT + " with timeout " + timeout + "ms");
 		ServerSocket s = null;
 		do {
 			try {
 				s = new ServerSocket(PORT);
 
-				s.setSoTimeout(intervall);
+				s.setSoTimeout(timeout);
 				Socket accept = s.accept();
 				handleConnect(accept);
 			} catch (SocketTimeoutException ste) {
@@ -66,7 +64,6 @@ public class ClusterListener implements Runnable {
 	private void handleConnect(final Socket accept) {
 		new Thread(new Runnable() {
 
-			@Override
 			public void run() {
 
 				accept(accept);

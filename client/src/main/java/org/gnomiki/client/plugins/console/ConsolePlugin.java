@@ -86,44 +86,36 @@ public class ConsolePlugin implements IPlugin, IPluginView {
 		return new ConsoleLog(clazz, getTable());
 	}
 
-	@Override
 	public JMenu getMenu() {
 		JMenu menu = new JMenu("Console");
 		JMenuItem clearItem = new JMenuItem(new Action() {
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				DefaultTableModel model = (DefaultTableModel) getTable()
 						.getModel();
 				model.setRowCount(0);
 			}
 
-			@Override
 			public void setEnabled(boolean b) {
 			}
 
-			@Override
 			public void removePropertyChangeListener(
 					PropertyChangeListener listener) {
 			}
 
-			@Override
 			public void putValue(String key, Object value) {
 			}
 
-			@Override
 			public boolean isEnabled() {
 
 				return true;
 			}
 
-			@Override
 			public Object getValue(String key) {
 				// TODO Auto-generated method stub
 				return null;
 			}
 
-			@Override
 			public void addPropertyChangeListener(
 					PropertyChangeListener listener) {
 				// TODO Auto-generated method stub
@@ -138,12 +130,10 @@ public class ConsolePlugin implements IPlugin, IPluginView {
 		return menu;
 	}
 
-	@Override
 	public JDialog getDialog(JFrame parent) {
 		return null;
 	}
 
-	@Override
 	public String getTitle() {
 		return "Console";
 	}

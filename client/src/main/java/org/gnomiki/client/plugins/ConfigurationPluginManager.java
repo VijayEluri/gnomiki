@@ -41,7 +41,6 @@ public class ConfigurationPluginManager implements IPluginManager {
 		return pluginsById.values().toArray(new IPlugin[0]);
 	}
 
-	@Override
 	public void shutDown() {
 		for (IPlugin plugin : pluginsById.values()) {
 			plugin.shutDown();
