@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import org.gnomiki.client.plugins.cluster.ClusterListener;
+import org.gnomiki.cluster.ClusterListener;
 
 public class SocketListenerTester {
 

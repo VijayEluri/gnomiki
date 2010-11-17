@@ -15,11 +15,11 @@ import javax.swing.JTabbedPane;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.gnomiki.client.plugins.IPlugin;
-import org.gnomiki.client.plugins.IPluginManager;
-import org.gnomiki.client.plugins.IPluginView;
+import org.gnomiki.client.plugins.ISwingPlugin;
 import org.gnomiki.client.plugins.console.ConsolePlugin;
 import org.gnomiki.core.config.Configuration;
+import org.gnomiki.plugins.IPlugin;
+import org.gnomiki.plugins.IPluginManager;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class MainFrame extends JFrame implements WindowListener {
@@ -56,32 +56,34 @@ public class MainFrame extends JFrame implements WindowListener {
 
 		IPlugin[] plugins = pluginManager.getPlugins();
 		for (IPlugin iPlugin : plugins) {
-			registerPlugin(iPlugin);
+			try {
+				registerPlugin((ISwingPlugin) iPlugin);
+			} catch (ClassCastException cce) {
+				if (L.isDebugEnabled())
+					L.debug("plugin '" + iPlugin.getPluginId()
+							+ "' not a swing plugin");
+			}
 		}
 		configureContentPane();
-
 		addWindowListener(this);
 	}
 
-	private void registerPlugin(IPlugin iPlugin) {
+	private void registerPlugin(ISwingPlugin iPlugin) {
 
-		JMenu menu = iPlugin.getView().getMenu();
+		JMenu menu = iPlugin.getMenu();
 		if (menu != null) {
 			widgetMenu.add(menu);
 		}
-		IPluginView view = iPlugin.getView();
-		if (view != null) {
 
-			JDialog dialog = view.getDialog(this);
-			if (dialog == null)
-				return;
-			dialog.setVisible(true);
-		}
+		JDialog dialog = iPlugin.getDialog(this);
+		if (dialog == null)
+			return;
+		dialog.setVisible(true);
 	}
 
 	private void configureContentPane() {
 		ConsolePlugin console = (ConsolePlugin) pluginManager
-				.getPlugin(ConsolePlugin.PLUGIN_IN);
+				.getPlugin(ConsolePlugin.PLUGIN_ID);
 		setContentPane(console.getPanel());
 
 	}

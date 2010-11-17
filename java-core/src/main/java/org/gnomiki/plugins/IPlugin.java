@@ -1,5 +1,4 @@
-package org.gnomiki.client.plugins;
-
+package org.gnomiki.plugins;
 
 /**
  * A client plugin.
@@ -27,13 +26,6 @@ public interface IPlugin {
 	 *             not be available.
 	 */
 	public void init(IPluginManager pluginManager) throws Exception;
-
-	/**
-	 * If any, returns the view of this Plugin. If none, null.
-	 * 
-	 * @return
-	 */
-	public IPluginView getView();
 
 	/**
 	 * Shuts thsi plugin down. No matter which result this has, this plugin

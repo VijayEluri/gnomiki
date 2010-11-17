@@ -12,7 +12,7 @@
 	<!-- ################################ -->
 	<bean id="config" class="org.gnomiki.core.config.impl.PropertiesConfigImpl">
 	<constructor-arg>
-			<value>clientConfig.properties</value>
+			<value>client-config.properties</value>
 		</constructor-arg>
 	</bean>
 	
@@ -20,10 +20,12 @@
 		factory-method="getBundle">
 		<constructor-arg>
 			<!-- Resource bundles base name -->
-			<value>MainFrame</value>
+			<value>client-text</value>
 		</constructor-arg>
 	</bean>
-	<bean id="pluginManager" class="org.gnomiki.client.plugins.ConfigurationPluginManager" init-method="init"/>
+	<bean id="pluginManager" class="org.gnomiki.plugins.ConfigurationPluginManager" init-method="init">
+	<constructor-arg ref="config" />
+	</bean>
 
 	<!-- ############################# -->
 	<!-- Main Frame -->

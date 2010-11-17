@@ -4,13 +4,9 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 
-/**
- * A view that can create a JPanel and deliver some view information.
- * 
- * @author MicWin
- * 
- */
-public interface IPluginView {
+import org.gnomiki.plugins.IPlugin;
+
+public interface ISwingPlugin extends IPlugin {
 
 	/**
 	 * Returns a non-modal dialog representing this view.

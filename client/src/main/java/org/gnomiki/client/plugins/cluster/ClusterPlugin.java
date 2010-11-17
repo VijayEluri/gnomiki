@@ -5,12 +5,12 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 
 import org.apache.commons.logging.Log;
-import org.gnomiki.client.plugins.IPlugin;
-import org.gnomiki.client.plugins.IPluginManager;
-import org.gnomiki.client.plugins.IPluginView;
+import org.gnomiki.client.plugins.ISwingPlugin;
 import org.gnomiki.client.plugins.console.ConsolePlugin;
+import org.gnomiki.cluster.ClusterListener;
+import org.gnomiki.plugins.IPluginManager;
 
-public class ClusterPlugin implements IPlugin, IPluginView {
+public class ClusterPlugin implements ISwingPlugin {
 
 	public static final String PLUGIN_ID = "cluster";
 
@@ -24,13 +24,9 @@ public class ClusterPlugin implements IPlugin, IPluginView {
 		return PLUGIN_ID;
 	}
 
-	public IPluginView getView() {
-		return this;
-	}
-
 	public void init(IPluginManager pluginManager) throws Exception {
 
-		con = (ConsolePlugin) pluginManager.getPlugin(ConsolePlugin.PLUGIN_IN);
+		con = (ConsolePlugin) pluginManager.getPlugin(ConsolePlugin.PLUGIN_ID);
 		L = con.getLog(ClusterPlugin.class);
 		listener = new ClusterListener(con.getLog(ClusterListener.class), 5000);
 

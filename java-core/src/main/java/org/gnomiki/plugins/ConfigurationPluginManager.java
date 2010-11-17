@@ -1,4 +1,4 @@
-package org.gnomiki.client.plugins;
+package org.gnomiki.plugins;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,16 +6,24 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.gnomiki.core.config.Configuration;
-import org.springframework.beans.factory.annotation.Autowired;
 
+/**
+ * Configure this with spring by inserting a Configuration to property config.
+ * 
+ * @author MicWin
+ * 
+ */
 public class ConfigurationPluginManager implements IPluginManager {
 
 	private final Log L = LogFactory.getLog(ConfigurationPluginManager.class);
 
-	@Autowired
 	Configuration config;
 
 	Map<String, IPlugin> pluginsById = new HashMap<String, IPlugin>();
+
+	public ConfigurationPluginManager(Configuration config) {
+		this.config = config;
+	}
 
 	public IPlugin getPlugin(String pluginId) {
 		return pluginsById.get(pluginId);

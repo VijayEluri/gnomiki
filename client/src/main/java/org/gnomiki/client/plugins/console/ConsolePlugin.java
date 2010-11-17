@@ -15,10 +15,9 @@ import javax.swing.table.DefaultTableModel;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.gnomiki.client.plugins.IPlugin;
-import org.gnomiki.client.plugins.IPluginManager;
-import org.gnomiki.client.plugins.IPluginView;
+import org.gnomiki.client.plugins.ISwingPlugin;
 import org.gnomiki.core.config.Configuration;
+import org.gnomiki.plugins.IPluginManager;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -27,9 +26,9 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author MicWin
  * 
  */
-public class ConsolePlugin implements IPlugin, IPluginView {
+public class ConsolePlugin implements ISwingPlugin {
 
-	public static final String PLUGIN_IN = "guiLog";
+	public static final String PLUGIN_ID = "guiLog";
 
 	private final Log L = LogFactory.getLog(ConsolePlugin.class);
 
@@ -43,7 +42,7 @@ public class ConsolePlugin implements IPlugin, IPluginView {
 	private ConsoleTable table;
 
 	public String getPluginId() {
-		return PLUGIN_IN;
+		return PLUGIN_ID;
 	}
 
 	public void init(IPluginManager pm) throws Exception {
@@ -53,10 +52,6 @@ public class ConsolePlugin implements IPlugin, IPluginView {
 
 	public void shutDown() {
 		L.info("shutdown");
-	}
-
-	public IPluginView getView() {
-		return this;
 	}
 
 	public JPanel getPanel() {

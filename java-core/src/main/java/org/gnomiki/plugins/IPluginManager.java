@@ -1,4 +1,4 @@
-package org.gnomiki.client.plugins;
+package org.gnomiki.plugins;
 
 /**
  * A plugin mamnager to manage multiple Plugins referring to each other.
