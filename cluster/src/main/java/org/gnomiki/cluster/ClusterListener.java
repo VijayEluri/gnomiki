@@ -13,23 +13,23 @@ import java.net.SocketAddress;
 import java.net.SocketTimeoutException;
 
 import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class ClusterListener implements Runnable {
 
 	public static final int PORT = 30000;
-	Log l;
+	private static final Log L = LogFactory.getLog(ClusterListener.class);
 	private final int timeout;
 
 	boolean shutDown = false;
 
-	public ClusterListener(Log myNewLogger, int intervall) {
-		l = myNewLogger;
+	public ClusterListener(int intervall) {
 		this.timeout = intervall;
 
 	}
 
 	public void run() {
-		l.info("listening at port " + PORT + " with timeout " + timeout + "ms");
+		L.info("listening at port " + PORT + " with timeout " + timeout + "ms");
 		ServerSocket s = null;
 		do {
 			try {
@@ -41,7 +41,7 @@ public class ClusterListener implements Runnable {
 			} catch (SocketTimeoutException ste) {
 				// dont care
 			} catch (IOException e) {
-				l.error("couldnt bind to port " + PORT, e);
+				L.error("couldnt bind to port " + PORT, e);
 				shutDown = true;
 			}
 
@@ -49,11 +49,11 @@ public class ClusterListener implements Runnable {
 				try {
 					s.close();
 				} catch (IOException e) {
-					l.error("cannot close socket", e);
+					L.error("cannot close socket", e);
 				}
 		} while (!shutDown);
 
-		l.info("shutdown");
+		L.info("shutdown");
 	}
 
 	/**
@@ -74,7 +74,7 @@ public class ClusterListener implements Runnable {
 	private void accept(Socket socket) {
 
 		SocketAddress remoteAdress = socket.getRemoteSocketAddress();
-		l.info("incomming connect from " + socket.getInetAddress());
+		L.info("incomming connect from " + socket.getInetAddress());
 
 		try {
 			InputStream in = socket.getInputStream();
@@ -82,7 +82,7 @@ public class ClusterListener implements Runnable {
 			Reader reader = new InputStreamReader(in);
 			while (reader.ready()) {
 				BufferedReader buf = new BufferedReader(reader);
-				l.info("remote message was " + buf.readLine());
+				L.info("remote message was " + buf.readLine());
 			}
 			PrintWriter writer = new PrintWriter(new OutputStreamWriter(
 					socket.getOutputStream()));
@@ -91,7 +91,7 @@ public class ClusterListener implements Runnable {
 			socket.close();
 
 		} catch (IOException e) {
-			l.error("could not close incoming socket", e);
+			L.error("could not close incoming socket", e);
 		}
 	}
 
