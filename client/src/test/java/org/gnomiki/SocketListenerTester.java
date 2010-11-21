@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import org.gnomiki.cluster.ClusterListener;
+import org.gnomiki.cluster.listener.ServerSocketListener;
 
 public class SocketListenerTester {
 
@@ -26,7 +26,7 @@ public class SocketListenerTester {
 			System.out.println("trying conect as " + guid);
 			Socket s;
 			try {
-				s = new Socket("localhost", ClusterListener.PORT);
+				s = new Socket("localhost", ServerSocketListener.PORT);
 
 				OutputStream outputStream = s.getOutputStream();
 				PrintWriter writer = new PrintWriter(outputStream);

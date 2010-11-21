@@ -6,12 +6,13 @@ import javax.swing.JMenu;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.gnomiki.client.plugins.ISwingPlugin;
 import org.gnomiki.client.plugins.console.ConsolePlugin;
-import org.gnomiki.cluster.ClusterListener;
+import org.gnomiki.cluster.Cluster;
+import org.gnomiki.cluster.listener.ServerSocketListener;
+import org.gnomiki.plugins.IPlugin;
 import org.gnomiki.plugins.IPluginManager;
 
-public class ClusterPlugin implements ISwingPlugin {
+public class ClusterPlugin implements IPlugin {
 
 	public static final String PLUGIN_ID = "cluster";
 
@@ -19,7 +20,7 @@ public class ClusterPlugin implements ISwingPlugin {
 
 	private final Log L = LogFactory.getLog(ClusterPlugin.class);
 
-	ClusterListener listener;
+	ServerSocketListener listener;
 
 	public String getPluginId() {
 		return PLUGIN_ID;
@@ -28,7 +29,8 @@ public class ClusterPlugin implements ISwingPlugin {
 	public void init(IPluginManager pluginManager) throws Exception {
 
 		con = (ConsolePlugin) pluginManager.getPlugin(ConsolePlugin.PLUGIN_ID);
-		listener = new ClusterListener(5000);
+		Cluster c = new Cluster();
+		listener = new ServerSocketListener(5000, c);
 
 		new Thread(listener).start();
 		L.info("initialized");
