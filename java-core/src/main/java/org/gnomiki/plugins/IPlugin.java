@@ -9,7 +9,8 @@ package org.gnomiki.plugins;
 public interface IPlugin {
 
 	/**
-	 * Returns a unique id to which other plugins can connect to.
+	 * Returns a unique id to which other plugins can connect to. Consider this
+	 * as a unique id for s specific group of domain functionality.
 	 * 
 	 * @return
 	 */

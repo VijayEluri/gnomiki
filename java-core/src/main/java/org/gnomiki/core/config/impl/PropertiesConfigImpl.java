@@ -13,7 +13,7 @@ import org.gnomiki.core.config.Configuration;
 /**
  * Implements a configuration that configures from System Properties.
  * 
- * @author A29300
+ * @author micwin
  * 
  */
 public class PropertiesConfigImpl implements Configuration {
