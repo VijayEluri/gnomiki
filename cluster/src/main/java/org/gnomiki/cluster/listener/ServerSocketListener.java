@@ -1,4 +1,4 @@
-package org.gnomiki.cluster;
+package org.gnomiki.cluster.listener;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,16 +14,17 @@ import java.net.SocketTimeoutException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.gnomiki.cluster.Cluster;
 
-public class ClusterListener implements Runnable {
+public class ServerSocketListener implements Runnable {
 
 	public static final int PORT = 30000;
-	private static final Log L = LogFactory.getLog(ClusterListener.class);
+	private static final Log L = LogFactory.getLog(ServerSocketListener.class);
 	private final int timeout;
 
 	boolean shutDown = false;
 
-	public ClusterListener(int intervall) {
+	public ServerSocketListener(int intervall, Cluster cluster) {
 		this.timeout = intervall;
 
 	}
@@ -37,7 +38,7 @@ public class ClusterListener implements Runnable {
 
 				s.setSoTimeout(timeout);
 				Socket accept = s.accept();
-				handleConnect(accept);
+				spinOffAccept(accept);
 			} catch (SocketTimeoutException ste) {
 				// dont care
 			} catch (IOException e) {
@@ -61,35 +62,48 @@ public class ClusterListener implements Runnable {
 	 * 
 	 * @param accept
 	 */
-	private void handleConnect(final Socket accept) {
+	private void spinOffAccept(final Socket accept) {
 		new Thread(new Runnable() {
 
 			public void run() {
 
-				accept(accept);
+				runAccept(accept);
 			}
 		}).start();
 	}
 
-	private void accept(Socket socket) {
+	private void runAccept(Socket socket) {
 
 		SocketAddress remoteAdress = socket.getRemoteSocketAddress();
 		L.info("incomming connect from " + socket.getInetAddress());
 
+		int waitCounter = 0;
+
 		try {
 			InputStream in = socket.getInputStream();
-
 			Reader reader = new InputStreamReader(in);
-			while (reader.ready()) {
-				BufferedReader buf = new BufferedReader(reader);
-				L.info("remote message was " + buf.readLine());
-			}
+			BufferedReader buf = new BufferedReader(reader);
 			PrintWriter writer = new PrintWriter(new OutputStreamWriter(
 					socket.getOutputStream()));
-			writer.println("OK");
-			writer.flush();
-			socket.close();
 
+			while (!socket.isClosed() && waitCounter < timeout) {
+				if (buf.ready()) {
+					String line = buf.readLine();
+					L.info("remote message was " + line);
+					writer.println("OK '" + line + "'");
+					writer.flush();
+					waitCounter = 0;
+				} else {
+					try {
+						Thread.currentThread().sleep(100);
+					} catch (InterruptedException e) {
+						L.error("cannot wait for input ?!?", e);
+					}
+				}
+				waitCounter += 100;
+
+			}
+			socket.close();
 		} catch (IOException e) {
 			L.error("could not close incoming socket", e);
 		}
