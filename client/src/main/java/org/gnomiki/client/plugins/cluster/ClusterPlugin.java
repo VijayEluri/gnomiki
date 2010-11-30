@@ -1,22 +1,19 @@
 package org.gnomiki.client.plugins.cluster;
 
 import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.gnomiki.client.plugins.console.ConsolePlugin;
 import org.gnomiki.cluster.Cluster;
 import org.gnomiki.cluster.listener.ServerSocketListener;
 import org.gnomiki.plugins.IPlugin;
 import org.gnomiki.plugins.IPluginManager;
+import org.gnomiki.plugins.swing.SwingLayouter;
+import org.gnomiki.plugins.swing.SwingLayouter.DialogType;
 
 public class ClusterPlugin implements IPlugin {
 
 	public static final String PLUGIN_ID = "cluster";
-
-	private ConsolePlugin con;
 
 	private final Log L = LogFactory.getLog(ClusterPlugin.class);
 
@@ -28,25 +25,28 @@ public class ClusterPlugin implements IPlugin {
 
 	public void init(IPluginManager pluginManager) throws Exception {
 
-		con = (ConsolePlugin) pluginManager.getPlugin(ConsolePlugin.PLUGIN_ID);
+		SwingLayouter layouter = (SwingLayouter) pluginManager
+				.getPlugin(SwingLayouter.PLUGIN_ID);
+
+		layouter.layout(getDialog(), DialogType.META);
 		Cluster c = new Cluster();
 		listener = new ServerSocketListener(5000, c);
 
 		new Thread(listener).start();
+
 		L.info("initialized");
+	}
+
+	private JDialog getDialog() {
+		JDialog dialog = new JDialog();
+		dialog.setTitle(getTitle());
+		dialog.setVisible(true);
+		return dialog;
 	}
 
 	public void shutDown() {
 		listener.shutDown();
 
-	}
-
-	public JMenu getMenu() {
-		return null;
-	}
-
-	public JDialog getDialog(JFrame parent) {
-		return null;
 	}
 
 	public String getTitle() {

@@ -58,7 +58,7 @@ public class ConsolePlugin implements IPlugin {
 		SwingLayouter slp = (SwingLayouter) pluginManager
 				.getPlugin(SwingLayouter.PLUGIN_ID);
 
-		slp.layout(dialog, SwingLayouter.Region.CONSOLE);
+		slp.layout(dialog, SwingLayouter.DialogType.CONSOLE);
 		dialog.setVisible(true);
 		ConsoleAppender.me.table = getTable();
 		L.info("initialized");

@@ -1,7 +1,6 @@
 package org.gnomiki.client;
 
-import org.gnomiki.plugins.IPlugin;
-import org.gnomiki.plugins.IPluginManager;
+import org.gnomiki.MacOSXMenuAdjuster;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -11,15 +10,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
+
+		MacOSXMenuAdjuster.adjust();
+
 		ApplicationContext ctx = new ClassPathXmlApplicationContext(
 				"app-context.xml");
 
-		IPluginManager pluginManager = (IPluginManager) ctx
-				.getBean("pluginManager");
-		for (IPlugin plugin : pluginManager.getPlugins()) {
-			System.out.println(plugin.getPluginId());
-		}
-		System.out.println(pluginManager);
 	}
 }
