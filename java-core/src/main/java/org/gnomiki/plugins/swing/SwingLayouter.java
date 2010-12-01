@@ -11,15 +11,21 @@ import org.gnomiki.plugins.IPluginManager;
 
 public class SwingLayouter implements IPlugin {
 
-	private final int STACKER_OFFSET = 5;
+	public enum DialogType {
 
-	public static enum Region {
+		/**
+		 * A region to the right side of the screen.
+		 */
+		META,
 
 		/**
 		 * A region to the lower side of the screen, spanning the whole screen.
 		 */
 		CONSOLE;
+
 	}
+
+	private final int STACKER_OFFSET = 5;
 
 	/**
 	 * Resizes and positions a doalog so that it comes to place where specified.
@@ -28,7 +34,7 @@ public class SwingLayouter implements IPlugin {
 	 * @param region
 	 *            .
 	 */
-	public void layout(JDialog dialog, Region region) {
+	public void layout(JDialog dialog, DialogType region) {
 
 		switch (region) {
 		case CONSOLE:
@@ -51,7 +57,6 @@ public class SwingLayouter implements IPlugin {
 	public static final String PLUGIN_ID = "swingLayout";
 
 	private IPluginManager pluginManager;
-	private Layouter layouter;
 
 	public String getPluginId() {
 		return PLUGIN_ID;

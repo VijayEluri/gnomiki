@@ -1,6 +1,5 @@
 package org.gnomiki.client;
 
-import org.gnomiki.MacOSXMenuAdjuster;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -12,7 +11,7 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 
-		MacOSXMenuAdjuster.adjust();
+		// MacOSXMenuAdjuster.adjust();
 
 		ApplicationContext ctx = new ClassPathXmlApplicationContext(
 				"app-context.xml");
