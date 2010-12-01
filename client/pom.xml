@@ -8,10 +8,10 @@
 		<version>0.2-SNAPSHOT</version>
 	</parent>
 
-
+	<artifactId>gnomiki-swing-client</artifactId>
 	<groupId>${parent.groupId}</groupId>
 	<version>${parent.version}</version>
-	
+
 	<url>${gnomiki.baseUrl}/${artifactId}</url>
 
 	<packaging>jar</packaging>
@@ -29,7 +29,7 @@
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring</artifactId>
@@ -44,10 +44,10 @@
 			<groupId>org.gnomiki</groupId>
 			<artifactId>java-core</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.gnomiki</groupId>
-			<artifactId>gnomiki-cluster</artifactId>
+			<artifactId>cluster</artifactId>
 		</dependency>
 	</dependencies>
 
@@ -82,16 +82,6 @@
 					</execution>
 				</executions>
 
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
-				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
-				</configuration>
 			</plugin>
 
 			<plugin>
