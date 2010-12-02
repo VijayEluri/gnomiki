@@ -1,4 +1,4 @@
-package org.gnomiki.plugins.swing;
+package org.gnomiki.client.plugins.swing;
 
 import java.awt.Dimension;
 
@@ -6,6 +6,7 @@ import javax.swing.JDialog;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.gnomiki.exceptions.NotYetImplementedError;
 import org.gnomiki.plugins.IPlugin;
 import org.gnomiki.plugins.IPluginManager;
 
@@ -40,7 +41,23 @@ public class SwingLayouter implements IPlugin {
 		case CONSOLE:
 			layoutToConsole(dialog);
 			break;
+
+		case META:
+			layoutToMeta(dialog);
+			break;
+		default:
+			throw new NotYetImplementedError("layouting to region '" + region
+					+ "'");
 		}
+	}
+
+	private void layoutToMeta(JDialog dialog) {
+		Dimension screenSize = dialog.getToolkit().getScreenSize();
+		int width = (int) (screenSize.getWidth() / 4);
+		int height = (int) (screenSize.getHeight() / 4);
+
+		dialog.setSize(new Dimension(width, height));
+		dialog.setLocation((int) (screenSize.getWidth() - width), 0);
 	}
 
 	private void layoutToConsole(JDialog dialog) {

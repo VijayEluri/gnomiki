@@ -16,10 +16,10 @@ import javax.swing.table.DefaultTableModel;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.gnomiki.core.config.Configuration;
+import org.gnomiki.client.plugins.swing.SwingLayouter;
+import org.gnomiki.config.Configuration;
 import org.gnomiki.plugins.IPlugin;
 import org.gnomiki.plugins.IPluginManager;
-import org.gnomiki.plugins.swing.SwingLayouter;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**

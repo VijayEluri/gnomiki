@@ -4,12 +4,12 @@ import javax.swing.JDialog;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.gnomiki.client.plugins.swing.SwingLayouter;
+import org.gnomiki.client.plugins.swing.SwingLayouter.DialogType;
 import org.gnomiki.cluster.Cluster;
 import org.gnomiki.cluster.listener.ServerSocketListener;
 import org.gnomiki.plugins.IPlugin;
 import org.gnomiki.plugins.IPluginManager;
-import org.gnomiki.plugins.swing.SwingLayouter;
-import org.gnomiki.plugins.swing.SwingLayouter.DialogType;
 
 public class ClusterPlugin implements IPlugin {
 

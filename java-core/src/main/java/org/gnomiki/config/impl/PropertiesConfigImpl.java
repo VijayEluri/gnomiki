@@ -1,4 +1,4 @@
-package org.gnomiki.core.config.impl;
+package org.gnomiki.config.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,7 +8,7 @@ import java.util.StringTokenizer;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.gnomiki.core.config.Configuration;
+import org.gnomiki.config.Configuration;
 
 /**
  * Implements a configuration that configures from System Properties.

@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.gnomiki.core.config.Configuration;
+import org.gnomiki.config.Configuration;
 
 /**
  * Configure this with spring by inserting a Configuration to property config.
@@ -32,14 +32,15 @@ public class ConfigurationPluginManager implements IPluginManager {
 	public void init() {
 		String[] pluginClasses = config.getStringArray("plugins");
 		for (int i = 0; i < pluginClasses.length; i++) {
+			String className = pluginClasses[i];
 			try {
-				Class clazz = Class.forName(pluginClasses[i]);
+				Class clazz = Class.forName(className);
 				IPlugin plugin = (IPlugin) clazz.newInstance();
 				plugin.init(this);
 				pluginsById.put(plugin.getPluginId(), plugin);
 				L.info("registered Plugin '" + plugin.getPluginId() + "'");
 			} catch (Exception e) {
-				L.error("Cannot laod plugin class '" + pluginClasses[i] + "'",
+				L.error("Cannot laod plugin class '" + className + "'",
 						e);
 			}
 		}
